@@ -1,5 +1,6 @@
 import {useState} from 'react';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
 const SignUp = () => {
 
   const [name, setName] = useState('');
@@ -8,9 +9,24 @@ const SignUp = () => {
   const [rememberMe, setRememberMe] = useState(false);
 
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     // Handle form submission here
+     try {
+      const response = await axios.post('https://richpanel-ott-backend.onrender.com/api/user/register', {
+        name,
+        email,
+        password,
+      });
+      console.log(response.data); // Assuming the response contains a success message
+      // You can redirect to another page, show a success message, etc.
+      alert('User created successfully');
+
+    } catch (error) {
+      console.error('Error signing up:', error.response.data);
+      // Handle error: show an error message, reset the form, etc.
+    }
+  
   };
 
 

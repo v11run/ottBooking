@@ -1,5 +1,6 @@
 import {useState} from 'react';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
 const Login = () => {
 
   
@@ -7,9 +8,19 @@ const Login = () => {
   const [password, setPassword] = useState('');
   
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     // Handle form submission here
+    try{
+      const response= await axios.post('https://richpanel-ott-backend.onrender.com/api/user/login',{
+        email,password,
+      });
+      console.log(response.data);
+    }
+    
+    catch(error){
+      console.error('Error logging in:', error.response.data);
+    }
   };
 
 
